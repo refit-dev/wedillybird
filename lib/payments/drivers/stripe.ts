@@ -87,7 +87,7 @@ export const stripeDriver: PaymentDriver = {
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      allowed_payment_method_types: ['card'],
       line_items: [lineItem],
       success_url: appendSessionIdParam(input.successUrl),
       cancel_url: input.cancelUrl,
@@ -236,7 +236,7 @@ export async function createSubscriptionCheckout(
   const currency = input.currency ?? 'EUR';
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
-    payment_method_types: ['card'],
+    allowed_payment_method_types: ['card'],
     line_items: [{ quantity: 1, price: priceIdForTier(input.tier, billing, currency) }],
     success_url: appendSessionIdParam(input.successUrl),
     cancel_url: input.cancelUrl,
@@ -344,7 +344,7 @@ export async function createPaygCheckout(input: PaygCheckoutInput): Promise<Chec
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
-    payment_method_types: ['card'],
+    allowed_payment_method_types: ['card'],
     line_items: [{ quantity: 1, price: priceId }],
     success_url: appendSessionIdParam(input.successUrl),
     cancel_url: input.cancelUrl,
@@ -422,7 +422,7 @@ export async function createPostEventUpsellCheckout(
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
-    payment_method_types: ['card'],
+    allowed_payment_method_types: ['card'],
     line_items: [lineItem],
     success_url: appendSessionIdParam(input.successUrl),
     cancel_url: input.cancelUrl,
